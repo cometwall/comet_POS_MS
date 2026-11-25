@@ -1,6 +1,10 @@
 <script setup lang="ts">
 const {isOpen, cerrar } = useSidebar()
 
+const menuItems = [
+    {name: 'Dashboard', to: '/dashboard'},
+]
+
 const handleKeydown = (event: KeyboardEvent) => {
     if (event.key === 'Escape' && isOpen.value){
         cerrar()
@@ -31,7 +35,7 @@ onUnmounted(() => {
                 v-if="isOpen"
                 type="button"
                 aria-label="Cerrar menú"
-                class="fixed inset-0 z-40 bg-black/40"
+                class="fixed inset-0 z-40 bg-black/40 border-0 appearance-none"
                 @click="cerrar"
             ></button>
         </Transition>
@@ -66,11 +70,13 @@ onUnmounted(() => {
                  <!-- Enlaces de navegación -->
                     <nav class="p-4">
                         <NuxtLink
-                          to="/dashboard"
+                          v-for="item in menuItems"
+                          :key="item.to"
+                          :to="item.to"
                           @click="cerrar"
                           class="block rounded-lg px-4 py-3 text-gray-700 hover:bg-gray-100 hover:text-gray-900 transition-colors"
                         >
-                        Dashboard
+                        {{ item.name }}
                         </NuxtLink>
                     </nav>
             </aside>
