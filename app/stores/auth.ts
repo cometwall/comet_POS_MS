@@ -1,10 +1,10 @@
 import { defineStore } from 'pinia'
-import { useApi } from '~/composables/useApi'
+import { logoutRequest, loginRequest, refreshRequest, resetPasswordRequest } from '~/features/auth/api'
 import type {
     UsuarioAutenticado,
-    AuthRespuestaDto,
     Rol,
-    LoginDto
+    LoginDto,
+    CambiarPasswordDto
 } from '~/types/auth'
 
 export const useAuthStore = defineStore('auth', () => {
@@ -42,15 +42,7 @@ export const useAuthStore = defineStore('auth', () => {
 
     //Acciones
     async function login(dto: LoginDto): Promise<void> {
-        const api = useApi()
-
-        const response = await api<AuthRespuestaDto>(
-            '/api/Auth/login',
-            {
-                method: 'POST',
-                body: dto
-            }
-        )
+        const response = await loginRequest(dto)
         usuario.value = {
             nombre: response.nombre,
             rol: response.rol,
@@ -59,27 +51,17 @@ export const useAuthStore = defineStore('auth', () => {
     }
     
     async function logout(): Promise<void> {
-        const api = useApi()
 
         try {
-            await api('/api/Auth/logout', {
-                method: 'POST'
-            })
+            await logoutRequest()
         } finally {
             logoutLocal()
         }
     }
 
     async function refresh(): Promise<void> {
-        const api = useApi()
-
         try{
-            const response = await api<AuthRespuestaDto>(
-                '/api/Auth/refresh',
-                {
-                    method: 'POST'
-                }
-            )
+            const response = await refreshRequest()
             usuario.value = {
                 nombre: response.nombre,
                 rol: response.rol,
@@ -91,6 +73,10 @@ export const useAuthStore = defineStore('auth', () => {
         }
     }
 
+    async function resetPassword(dto: CambiarPasswordDto): Promise<void>{
+        await resetPasswordRequest(dto)
+    }
+
     return {
         usuario,
         estaAutenticado,
@@ -98,7 +84,8 @@ export const useAuthStore = defineStore('auth', () => {
         tieneNivel,
         login,
         logout,
-        refresh
+        refresh,
+        resetPassword
     }
 
 })
