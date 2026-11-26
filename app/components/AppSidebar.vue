@@ -3,6 +3,7 @@ const {isOpen, cerrar } = useSidebar()
 
 const menuItems = [
     {name: 'Dashboard', to: '/dashboard'},
+    {name: 'Usuarios', to: '/usuarios'},
 ]
 
 const handleKeydown = (event: KeyboardEvent) => {

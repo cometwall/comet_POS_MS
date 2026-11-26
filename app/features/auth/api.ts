@@ -26,7 +26,7 @@ export async function refreshRequest(): Promise<AuthRespuestaDto> {
     })
 }
 
-export async function resetPasswordRequest(dto: CambiarPasswordDto): Promise<void>{
+export async function cambiarPasswordRequest(dto: CambiarPasswordDto): Promise<void>{
     const api = useApi()
 
     await api('/api/Auth/cambiar-password', {

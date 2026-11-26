@@ -1,3 +1,4 @@
+//  --- DTOs que se envian al backend
 export interface ActualizarUsuarioDto {
     nombre: string
     rol: string
@@ -16,13 +17,16 @@ export interface ResetearPasswordDto {
     passwordNueva: string
 }
 
+//  --- DTOs que se reciben del backend
+
 export interface UsuarioDto {
-    Id: number
+    id: number
     nombre: string
     email: string
     rol: string
     sucursalId: number | null
     activo: boolean
-    bloqueadoHasta: Date | null
-    fechaCreacion: Date
+    bloqueadoHasta: string | null
+    fechaCreacion: string
 }
+

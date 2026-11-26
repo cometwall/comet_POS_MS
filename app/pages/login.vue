@@ -3,7 +3,7 @@ import LoginForm from '~/features/auth/components/LoginForm.vue'
 
 definePageMeta({
   publico: true,
-  layout: 'default'
+  layout: 'auth'
 })
 </script>
 

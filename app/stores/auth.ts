@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { logoutRequest, loginRequest, refreshRequest, resetPasswordRequest } from '~/features/auth/api'
+import { logoutRequest, loginRequest, refreshRequest, cambiarPasswordRequest } from '~/features/auth/api'
 import type {
     UsuarioAutenticado,
     Rol,
@@ -73,8 +73,8 @@ export const useAuthStore = defineStore('auth', () => {
         }
     }
 
-    async function resetPassword(dto: CambiarPasswordDto): Promise<void>{
-        await resetPasswordRequest(dto)
+    async function cambiarPassword(dto: CambiarPasswordDto): Promise<void>{
+        await cambiarPasswordRequest(dto)
     }
 
     return {
@@ -85,7 +85,7 @@ export const useAuthStore = defineStore('auth', () => {
         login,
         logout,
         refresh,
-        resetPassword
+        cambiarPassword
     }
 
 })
